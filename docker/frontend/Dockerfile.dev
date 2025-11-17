@@ -1,0 +1,23 @@
+# 前端开发环境 Dockerfile
+FROM node:22-slim
+
+WORKDIR /app
+
+# 安装 pnpm
+RUN npm install -g pnpm
+
+# 复制前端代码
+COPY frontend /app/frontend
+
+# 安装依赖
+RUN cd frontend && pnpm install
+
+EXPOSE 5173
+
+WORKDIR /app/frontend/packages/web
+
+CMD ["pnpm", "run", "dev", "--host", "0.0.0.0"]
+
+
+
+
